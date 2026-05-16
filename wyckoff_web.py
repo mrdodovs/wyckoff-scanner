@@ -13,8 +13,20 @@ st.sidebar.header("⚙️ Tarayıcı Ayarları")
 LOOKBACK_PERIOD = st.sidebar.slider("Likidasyon Geriye Dönük Mum Sayısı", 10, 50, 20)
 auto_refresh = st.sidebar.checkbox("Otomatik Yenileme (5 Dakika)", value=True)
 
-# Binance Bağlantısı
-exchange = ccxt.binance({'enableRateLimit': True, 'options': {'defaultType': 'future'}})
+# Binance Bağlantısı (Bulut Sunucu Engeli Aşılmış Yeni Versiyon)
+exchange = ccxt.binance({
+    'enableRateLimit': True,
+    'options': {
+        'defaultType': 'future',
+        'adjustForTimeDifference': True
+    },
+    'urls': {
+        'api': {
+            'public': 'https://fapi.binance.com/fapi',
+            'private': 'https://fapi.binance.com/fapi',
+        }
+    }
+})
 
 def get_data(symbol, timeframe):
     try:
