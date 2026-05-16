@@ -73,7 +73,7 @@ if st.button("🔄 Piyasayı Şimdi Tara") or auto_refresh:
     # Marketleri çek
     try:
         markets = exchange.load_markets()
-        symbols = [symbol for symbol in markets if symbol.endswith('/USDT:USDT')]
+        symbols = [symbol for symbol in markets if symbol.endswith('/USDT') and exchange.markets[symbol]['linear']]
     except Exception as e:
         st.error(f"Binance bağlantı hatası: {e}")
         symbols = []
